@@ -1,0 +1,33 @@
+-- Keep a log of any SQL queries you execute as you solve the mystery.
+
+-- First, we are checking in crime_scene_reports table and filter by year, month, day and street since we start with this informations.
+SELECT * FROM crime_scene_reports WHERE year=2021 AND month=7 AND day=28 AND street='Humphrey Street';
+
+-- We now know that id 295 correspond to our mystery and hour of the robery (10.15am).
+-- We can check interview to get more informations and we know that transcript contains the word bakery.
+SELECT transcript FROM interviews WHERE year=2021 AND month=7 AND day=28 AND transcript LIKE '%bakery%';
+
+-- We are checking in bakery logs since we know the thief get out the bakery parking around 10 minutes after the robery.
+SELECT name FROM people JOIN bakery_security_logs ON bakery_security_logs.license_plate=people.license_plate WHERE year=2021 AND month=7 AND day=28 AND hour=10 AND minute BETWEEN 15 AND 25 AND activity='exit';
+-- Vanessa, Bruce, Barry, Luca, Sofia, Iman, Diana an Kelsey.
+
+-- Based on second transcript, find people how did a withdraw close to the bakery.
+SELECT DISTINCT name FROM people JOIN bank_accounts ON bank_accounts.person_id=people.id JOIN atm_transactions ON atm_transactions.account_number=bank_accounts.account_number WHERE year=2021 AND month=7 AND day=28 AND atm_location='Leggett Sreet' AND transaction_type='withdraw';
+-- Bruce, Diana, Brooke, Kenny, Iman, Luca, Taylor, Benista.
+
+-- So far, here is people who are both on two first results; Bruce, Luca, Diana and Iman.
+
+-- People with a phone call with duration less than one minute.
+SELECT name FROM people JOIN phone_calls ON phone_calls.caller=people.phone_number WHERE year=2021 AND month=7 AND day=28 AND duration < 60;
+-- Sofia, Kelsey, Bruce, Taylor, Diana, Carina, Kenny, Benista.
+
+-- People who are both on third list: Bruce and Diana.
+
+-- Find destination of first flight on depearture from Fiftyville on 7/29/2021.
+SELECT city FROM airports WHERE id=(SELECT destination_airport_id FROM flights WHERE year=2021 AND month=7 AND day=29 AND origin_airport_id=(SELECT id FROM airports WHERE city='Fiftyville') ORDER BY hour, minute LIMIT 1);
+
+-- Find people on first flight from Fiftyville on 7/29/2021.
+SELECT name FROM people JOIN passengers ON passengers.passport_number=people.passport_number WHERE flight_id=(SELECT id FROM flights WHERE day=29 AND month=7 AND year=2021 AND origin_airport_id=(SELECT id FROM airports WHERE city='Fiftyville') ORDER By hour, minute LIMIT 1);
+
+-- Find the accomplice.
+SELECT name FROM people JOIN phone_calls ON phone_calls.receiver=people.phone_number WHERE year=2021 AND month=7 AND day=28 AND duration < 60 AND caller=(SELECT phone_number FROM people WHERE name='Bruce');
