@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Apology
+{% endblock %}
+
+{% block main %}
+{{ msg }}
+<form action="/" method="GET">
+	<button class="btn btn-primary" type="submit">
+		Go back !
+	</button>
+</form>
+{% endblock %}
