@@ -16,6 +16,6 @@ def index():
                 "apology.html",
                 msg="You must enter your password !"
             )
-        return "ici"
+        return "test"
     else:
         return render_template("login.html")
