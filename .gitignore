@@ -1,2 +1,3 @@
-**/venv
-**/__pycache
+/venv
+/__pycache
+Week 10
