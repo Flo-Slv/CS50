@@ -1,9 +1,9 @@
 /* START CSS CODE */
 
-form {
-	margin-top: 50px;
+html, body {
+	background-color: #F0F2F5;
 }
 
-a {
-	color: white;
+form {
+	margin-top: 50px;
 }
