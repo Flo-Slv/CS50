@@ -44,15 +44,16 @@ def login():
         if len(res) != 1 or not check_password_hash(res[0][2], password):
             return apology("Invalid email or password", 403)
 
-        # flash("Done !")
-        return render_template("profile.html")
+        # Remember which user has logged in
+        session["user_id"] = res[0][0]
 
-        return "TODO"
+        # Redirect user to home page
+        return redirect("/")
     else:
         return render_template("login.html")
 
 
-@app.route("/", methods=["GET"])
+@app.route("/")
 @login_required
 def index():
     return render_template("profile.html")
