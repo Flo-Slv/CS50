@@ -8,16 +8,18 @@ Welcome
 <div class="row justify-content-center">
 	<div class="col-md-4">
 		Welcome to CS50 social media !
+
+		<form action="/login" method="GET">
+			<button type="submit" class="btn btn-primary">
+				Login
+			</button>
+		</form>
+
+		<form action="/register" method="GET">
+			<button type="submit" class="btn btn-primary">
+				Register
+			</button>
+		</form>
 	</div>
-	<form action="/login" method="GET">
-		<button type="submit" class="btn btn-primary">
-			Login
-		</button>
-	</form>
-	<form action="/register" method="GET">
-		<button type="submit" class="btn btn-primary">
-			Register
-		</button>
-	</form>
 </div>
 {% endblock %}

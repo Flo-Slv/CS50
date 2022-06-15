@@ -39,8 +39,6 @@ def login():
         rows = db.execute("SELECT * FROM users WHERE email=?", (email,))
         res = rows.fetchall()
 
-        print(res)
-
         if len(res) != 1 or not check_password_hash(res[0][2], password):
             return apology("Invalid email or password", 403)
 
@@ -48,7 +46,7 @@ def login():
         session["user_id"] = res[0][0]
 
         # Redirect user to profile page
-        return render_template("profile.html")
+        return redirect("/profile")
     else:
         return render_template("login.html")
 
@@ -107,3 +105,20 @@ def register():
         return "TO DO !"
     else:
         return render_template("register.html")
+
+
+@app.route("/profile", methods=["GET", "POST"])
+@login_required
+def profile():
+    if request.method == "POST":
+        return "TO DO !"
+    else:
+        rows = db.execute("SELECT * FROM users WHERE id=?",
+                (session["user_id"],))
+        res = rows.fetchall()
+
+        return render_template("profile.html",
+            id=res[0][0],
+            email=res[0][1],
+            name=res[0][3]
+        )
