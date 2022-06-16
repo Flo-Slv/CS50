@@ -111,14 +111,76 @@ def register():
 @login_required
 def profile():
     if request.method == "POST":
-        return "TO DO !"
+        email = request.form.get("email")
+        name = request.form.get("name")
+
+        if not email and not name:
+            return apology(
+                "You must provide an email or a name to change !",
+                403
+            )
+
+        if email:
+            db.execute(
+                "UPDATE users SET email=? WHERE id=?",
+                (email, session["user_id"])
+            )
+            db.commit()
+
+        if name:
+            db.execute(
+                "UPDATE users SET name=? WHERE id=?",
+                (name, session["user_id"])
+            )
+            db.commit()
+
+        return redirect("/profile")
     else:
         rows = db.execute("SELECT * FROM users WHERE id=?",
                 (session["user_id"],))
-        res = rows.fetchall()
+        res = rows.fetchall()[0]
 
         return render_template("profile.html",
-            id=res[0][0],
-            email=res[0][1],
-            name=res[0][3]
+            id=res[0],
+            email=res[1],
+            name=res[3]
         )
+
+@app.route("/change-password", methods=["POST"])
+@login_required
+def change_password():
+    if request.method == "POST":
+        old_password = request.form.get("old-password")
+        new_password = request.form.get("new-password")
+        confirmation = request.form.get("confirmation")
+
+        if not old_password:
+            return apology("You must provide your current password", 403)
+
+        if not new_password:
+            return apology("You must provide a new password", 403)
+
+        if not confirmation:
+            return apology("You must confirm your password !", 403)
+
+        if new_password != confirmation:
+            return apology("Both passwords should be identical !", 403)
+
+        rows = db.execute(
+            "SELECT password FROM users WHERE id=?",
+            (session["user_id"],)
+        )
+        res = rows.fetchall()[0][0]
+
+        if not check_password_hash(res, old_password):
+            return apology("Current password is not correct !", 403)
+
+        hash = generate_password_hash(new_password)
+
+        db.execute(
+            "UPDATE users SET password=? WHERE id=?",
+            (hash, session["user_id"])
+        )
+        db.commit()
+
+        return redirect("/profile")

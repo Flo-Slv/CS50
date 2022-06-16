@@ -7,13 +7,14 @@ Profile
 {% block main %}
 <div class="row justify-content-center">
 	<div class="col-md-4">
-		<h1>Profile</h1>
+		<h1>My profile</h1>
 		<table class="table">
 			<thead>
 				<tr>
 					<th scope="col">Id</th>
 					<th scope="col">Email</th>
 					<th scope="col">Name</th>
+					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -21,6 +22,25 @@ Profile
 					<th scope="row">{{ id }}</th>
 					<td>{{ email }}</td>
 					<td>{{ name }}</td>
+					<td>
+						<button
+							type="button"
+							class="btn btn-primary"
+							data-bs-toggle="modal"
+							data-bs-target="#modalInfos"
+						>
+							Edit
+						</button>
+
+						<button
+							type="button"
+							class="btn btn-secondary"
+							data-bs-toggle="modal"
+							data-bs-target="#modalPassword"
+						>
+							Change password
+						</button>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -30,6 +50,72 @@ Profile
 				Logout
 			</button>
 		</form>
+	</div>
+</div>
+
+<!-- Modal infos -->
+<div class="modal fade" id="modalInfos" tabindex="-1" aria-labelledby="modalInfos" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalInfos">Change your infos</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+			<form action="/profile" method="POST">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="email">Email address</label>
+						<input type="email" class="form-control" name="email" placeholder="Change your email">
+					</div>
+					<div class="form-group">
+						<label for="name">Name</label>
+						<input type="text" class="form-control" name="name" placeholder="Change your name">
+					</div>
+					<input type="hidden" name="id" value={{ id }}></input>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Modal password -->
+<div class="modal fade" id="modalPassword" tabindex="-1" aria-labelledby="modalInfos" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalPassword">Change your password</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+			<form action="/change-password" method="POST">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="old-password">Current password</label>
+						<input type="password" class="form-control" name="old-password" placeholder="Enter your old password">
+					</div>
+					<div class="form-group">
+						<label for="new-password">New password</label>
+						<input type="text" class="form-control" name="new-password" placeholder="Enter your new password">
+					</div>
+					<div class="form-group">
+						<label for="confirmation">Confirm new password</label>
+						<input type="text" class="form-control" name="confirmation" placeholder="Confirm your new password">
+					</div>
+					<input type="hidden" name="id" value={{ id }}></input>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 {% endblock %}
