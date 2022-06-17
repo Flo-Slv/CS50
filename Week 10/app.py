@@ -134,8 +134,11 @@ def profile():
             )
             db.commit()
 
+        session["page"] = "profile"
         return redirect("/profile")
     else:
+        session["page"] = "profile"
+
         rows = db.execute("SELECT * FROM users WHERE id=?",
                 (session["user_id"],))
         res = rows.fetchall()[0]
@@ -145,6 +148,7 @@ def profile():
             email=res[1],
             name=res[3]
         )
+
 
 @app.route("/change-password", methods=["POST"])
 @login_required
@@ -183,4 +187,15 @@ def change_password():
         )
         db.commit()
 
+        session["page"] = "profile"
         return redirect("/profile")
+
+
+@app.route("/home", methods=["GET", "POST"])
+@login_required
+def home():
+    if request.method == "POST":
+        return "TO DO !"
+    else:
+        session["page"] = "home"
+        return render_template("home.html")
