@@ -25,6 +25,7 @@ body {
 	align-items: center;
 }
 
+
 /* NAVBAR */
 nav {
 	position: fixed;
@@ -59,6 +60,7 @@ nav a:hover {
 	padding: 0px 10px;
 }
 
+
 /* FORM */
 .form {
 	padding-bottom: 20px;
@@ -71,6 +73,7 @@ nav a:hover {
 	margin-top: 10px;
 }
 
+
 /* APOLOGY */
 .apology {
 	height: 100vh;
@@ -80,4 +83,16 @@ nav a:hover {
 	justify-content: center;
 	align-items: center;
 	row-gap: 20px;
+}
+
+/* PROFILE */
+.profile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 40px;
+}
+
+.table th {
+	text-align: center;
 }
