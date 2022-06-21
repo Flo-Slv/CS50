@@ -21,6 +21,7 @@ body {
 	background-color: #D7DBDC;
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 }
@@ -29,14 +30,15 @@ body {
 /* NAVBAR */
 nav {
 	position: fixed;
-	width: 100%;
+	width: 800px;
 	height: 60px;
 	background-color: #202327;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
+	z-index: 99;
 }
 
 nav a {
@@ -95,4 +97,27 @@ nav a:hover {
 
 .table th {
 	text-align: center;
+}
+
+
+/* HOME */
+.main-home {
+	height: 100%;
+	width: 800px;
+	background-color: #D7DBDC;
+}
+
+.home {
+	margin-top: 60px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.card {
+	width: 80%;
+}
+
+.form-home {
+	width: 80%;
 }
