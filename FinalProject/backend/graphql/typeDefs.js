@@ -2,9 +2,9 @@ import gql from 'graphql-tag';
 
 const typeDefs = gql`
 	type Post {
-		id: ID!,
-		body: String!,
-		createdAt: String!,
+		id: ID!
+		body: String!
+		createdAt: String!
 		username: String!
 	}
 
@@ -23,12 +23,18 @@ const typeDefs = gql`
 		email: String!
 	}
 
+	input LoginInput {
+		username: String!
+		password: String!
+	}
+
 	type Query {
 		getPosts: [Post]
 	}
 
 	type Mutation {
 		register(registerInput: RegisterInput): User!
+		login(loginInput: LoginInput): User!
 	}
 `;
 
