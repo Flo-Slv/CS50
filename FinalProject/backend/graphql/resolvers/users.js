@@ -1,28 +1,41 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { UserInputError } from 'apollo-server';
 
 import { SECRET_KEY } from '../../config.js';
 import User from '../../models/User.js';
 
 const userResolver = {
 	Mutation: {
-		async register(parent, args, context, info) {
+		async register(_, args) {
 			const {
 				registerInput: { username, email, password, confirmPassword }
 			} = args;
 
-			// 12 rounds is pretty enough.
-			password = await bcrypt.hash(password, 12);
+			// Check if user unique, if not, throw error.
+			const user = await User.findOne({ username });
+
+			if (user)
+				// We use apollo error to display in frontend w/ apollo-client.
+				throw new UserInputError('username is taken', {
+					errors: {
+						username: 'This username is already taken !'
+					}
+				});
+
+			// 12 rounds is pretty sure..
+			let pwd = await bcrypt.hash(password, 12);
 
 			// Create new user and save in DB.
 			const newUser = new User({
 				email,
 				username,
-				password,
+				password: pwd,
 				createdAt: new Date().toISOString()
 			});
 			const res = await newUser.save();
 
+			// Create Jsonwebtoken.
 			const token = jwt.sign(
 				{
 					id: res.id,
