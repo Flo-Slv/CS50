@@ -4,6 +4,7 @@ import { UserInputError } from 'apollo-server';
 
 import { SECRET_KEY } from '../../config.js';
 import User from '../../models/User.js';
+import { validateRegisterInput } from '../../utils/validators.js';
 
 const userResolver = {
 	Mutation: {
@@ -11,6 +12,17 @@ const userResolver = {
 			const {
 				registerInput: { username, email, password, confirmPassword }
 			} = args;
+
+			// Validation of user input fields.
+			const { errors, valid } = validateRegisterInput(
+				username,
+				email,
+				password,
+				confirmPassword
+			);
+
+			if (!valid)
+				throw new UserInputError('Errors', { errors });
 
 			// Check if user unique, if not, throw error.
 			const user = await User.findOne({ username });
