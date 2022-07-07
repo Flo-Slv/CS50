@@ -1,15 +1,13 @@
-import Post from '../../models/Post.js';
+import postsQuery from '../queries/post/postsQuery.js';
+import postQuery from '../queries/post/postQuery.js';
 
 const postResolver = {
 	Query: {
 		getPosts: async () => {
-			try {
-				const posts = await Post.find();
-				return posts;
-			}
-			catch(err) {
-				throw new Error(err);
-			}
+			return await postsQuery();
+		},
+		getPost: async (_, args) => {
+			return await postQuery(args);
 		}
 	}
 };
