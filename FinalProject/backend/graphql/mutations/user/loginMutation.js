@@ -31,6 +31,7 @@ const loginMutation = async args => {
 			errors: { 'password': 'Wrong password !' }
 		});
 
+	// Create JsonWebToken
 	const token = generateJwtToken(user);
 
 	return {
