@@ -4,7 +4,9 @@ import usersResolvers from './users.js';
 const resolvers = {
 	Query: {
 		...postsResolvers.Query,
-		...usersResolvers.Query
+	},
+	Mutation: {
+		...usersResolvers.Mutation
 	}
 }
 

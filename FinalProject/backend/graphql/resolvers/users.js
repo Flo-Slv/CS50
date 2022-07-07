@@ -1,6 +1,11 @@
-const userQuery = {
-	Query: {
+import User from '../../models/User.js';
+
+const userResolver = {
+	Mutation: {
+		register(parent, args, context, info) {
+
+		}
 	}
 };
 
-export default userQuery;
+export default userResolver;
