@@ -1,6 +1,6 @@
 import Post from '../../models/Post.js';
 
-const postQuery = {
+const postResolver = {
 	Query: {
 		getPosts: async () => {
 			try {
@@ -14,4 +14,4 @@ const postQuery = {
 	}
 };
 
-export default postQuery;
+export default postResolver;
