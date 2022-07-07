@@ -17,11 +17,14 @@ const validateRegisterInput = (
 	if (!email.match(regEx))
 		errors.email = 'Email is not a valid email address !';
 
-	if (password === '')
+	if (password.trim() === '')
 		errors.password = 'Password should not be empty !';
 
+	if (confirmPassword.trim() === '')
+		errors.secondPassword = 'Confirmation password should not be empty !';
+
 	if (password.trim() !== confirmPassword.trim())
-		errors.password = 'Both password should be identical !';
+		errors.confirmPassword = 'Both password should be identical !';
 
 	return {
 		errors,
