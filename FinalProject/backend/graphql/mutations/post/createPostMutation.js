@@ -4,6 +4,7 @@ import checkAuth from '../../../utils/check-auth.js';
 
 const createPostMutation = async (body, context) => {
 	const user = checkAuth(context);
+	console.log(user);
 
 	const newPost = new Post({
 		body,
@@ -12,7 +13,9 @@ const createPostMutation = async (body, context) => {
 		createdAt: new Date().toISOString()
 	});
 
-	return post = await newPost.save();
+	const post = await newPost.save();
+
+	return post;
 };
 
 export default createPostMutation;

@@ -11,7 +11,9 @@ const checkAuth = context => {
 
 		if (token)
 			try {
-				return user = jwt.verify(token, SECRET_KEY);
+				// We can not directly return user, need to create const first !
+				const user = jwt.verify(token, SECRET_KEY);
+				return user;
 			} catch(err) {
 				throw new AuthenticationError('Invalid/expired token !');
 			}
@@ -19,7 +21,7 @@ const checkAuth = context => {
 		throw new Error('Wrong token: \'Bearer [token]');
 	}
 
-	throw new Error('Authenticaton header must be provided !');
+	throw new Error('Authorization header must be provided !');
 };
 
 export default checkAuth;
