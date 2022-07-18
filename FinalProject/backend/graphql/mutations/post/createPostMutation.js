@@ -4,7 +4,6 @@ import checkAuth from '../../../utils/check-auth.js';
 
 const createPostMutation = async (body, context) => {
 	const user = checkAuth(context);
-	console.log(user);
 
 	const newPost = new Post({
 		body,
