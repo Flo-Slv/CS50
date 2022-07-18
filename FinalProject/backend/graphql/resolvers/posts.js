@@ -17,8 +17,8 @@ const postResolver = {
 		createPost: async (_, { body }, context) => {
 			return await createPostMutation(body, context);
 		},
-		deletePost: async (_, { id }) => {
-			return await deletePostMutation(id);
+		deletePost: async (_, { postId }, context) => {
+			return await deletePostMutation(postId, context);
 		}
 	}
 };
