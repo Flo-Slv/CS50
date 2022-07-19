@@ -9,7 +9,7 @@ const createPostMutation = async (body, context) => {
 		body,
 		user: user.id,
 		username: user.username,
-		createdAt: new Date().toISOString()
+		createdAt: new Date().toLocaleString()
 	});
 
 	const post = await newPost.save();
