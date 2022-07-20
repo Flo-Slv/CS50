@@ -6,7 +6,7 @@ import { MONGODB } from './backend/config.js';
 import typeDefs from './backend/graphql/typeDefs.js';
 import resolvers from './backend/graphql/resolvers/index.js';
 
-// tutorial: 1:46:26 ???
+// tutorial: 1:46:26 ??
 
 const server = new ApolloServer({
 	typeDefs,
