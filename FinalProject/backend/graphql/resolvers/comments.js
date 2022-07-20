@@ -6,8 +6,8 @@ const commentResolver = {
 		createComment: async (_, { body, postId }, context) => {
 			return await createCommentMutation(body, postId, context);
 		},
-		deleteComment: async (_, { body }, context) => {
-			return await deleteCommentMutation(body);
+		deleteComment: async (_, { postId, commentId }, context) => {
+			return await deleteCommentMutation(postId, commentId, context);
 		}
 	}
 };
