@@ -18,6 +18,12 @@
 	},
 	"type": "module",
 	"devDependencies": {
+		"git-cz": "^4.9.0",
 		"nodemon": "^2.0.19"
+	},
+	"config": {
+		"commitizen": {
+			"path": "git-cz"
+		}
 	}
 }
