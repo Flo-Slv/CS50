@@ -1,7 +1,7 @@
 import registerMutation from '../mutations/user/registerMutation.js';
 import loginMutation from '../mutations/user/loginMutation.js';
 
-const userResolver = {
+const usersResolvers = {
 	Mutation: {
 		async register(_, args) {
 			return await registerMutation(args);
@@ -12,4 +12,4 @@ const userResolver = {
 	}
 };
 
-export default userResolver;
+export default usersResolvers;
