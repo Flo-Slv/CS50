@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import { UserInputError } from 'apollo-server';
 
 import User from '../../../models/User.js';
+
 import { generateJwtToken } from '../../../utils/functions.js';
 import { validateLoginInput } from '../../../utils/validators.js';
 

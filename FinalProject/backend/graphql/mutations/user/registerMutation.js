@@ -40,7 +40,7 @@ const registerMutation = async args => {
 		email,
 		username,
 		password: pwd,
-		createdAt: new Date().toISOString()
+		createdAt: new Date().toLocaleString()
 	});
 	const res = await newUser.save();
 
